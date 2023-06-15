@@ -1,0 +1,5 @@
+{
+  "locationServiceError_locationServiceNotAvailable": "Location service is not available. Please check that GPS is enabled.",
+  "locationServiceError_locationPermissionDenied": "Location permission denied. Please enable location permission.",
+  "locationServiceError_unknownError": "Unkown error occured while getting location."
+}

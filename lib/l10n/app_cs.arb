@@ -1,0 +1,5 @@
+{
+  "locationServiceError_locationServiceNotAvailable": "Určování polohy není k dispozici. Ujistěte se, že máte zapnuté GPS.",
+  "locationServiceError_locationPermissionDenied": "Aplikace nemá oprávnění k určování polohy.",
+  "locationServiceError_unknownError": "Při určování polohy došlo k neznámé chybě,"
+}
