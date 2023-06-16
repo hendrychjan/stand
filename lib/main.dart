@@ -11,9 +11,9 @@ void main() {
     title: 'Stand',
     home: const SplashPage(),
     theme: ThemeData(
-      colorScheme: ColorScheme.fromSeed(
-        primary: const Color.fromARGB(255, 255, 120, 40),
-        seedColor: const Color.fromARGB(255, 255, 120, 40),
+      colorScheme: const ColorScheme.light(
+        primary: Color.fromARGB(255, 255, 183, 138),
+        secondary: Color.fromARGB(255, 163, 195, 255),
       ),
       useMaterial3: true,
     ),

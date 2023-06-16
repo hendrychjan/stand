@@ -8,7 +8,8 @@ class LocationService {
     // Test if location permissions are granted
     await _checkLocationPermissions();
 
-    return await Geolocator.getCurrentPosition();
+    return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
   }
 
   static Future<void> _checkLocationServicesAvailable() async {
