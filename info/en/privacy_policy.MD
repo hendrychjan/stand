@@ -1,0 +1,3 @@
+# Privacy policy
+
+The app does not share your location or any personal data with other uses or services by default. It can access your location when you explicitely choose to, but it won't send it anywhere unless, again, you choose to, by manually copying the GPS coordinates and sending it to someone. Be aware of the fact that when you send your GPS coordinates to someone, you are giving that person an exact information of your current location.
