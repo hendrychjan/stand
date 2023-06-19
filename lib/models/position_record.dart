@@ -22,7 +22,7 @@ class PositionRecord {
   String latitude;
 
   @HiveField(4)
-  String longtitude;
+  String longitude;
 
   @HiveField(5)
   String? comment;
@@ -32,7 +32,7 @@ class PositionRecord {
     required this.date,
     required this.title,
     required this.latitude,
-    required this.longtitude,
+    required this.longitude,
     this.comment,
   });
 
@@ -42,7 +42,7 @@ class PositionRecord {
       date: DateTime.parse(map['date']),
       title: map['title'],
       latitude: map['latitude'],
-      longtitude: map['longtitude'],
+      longitude: map['longitude'],
       comment: map['comment'],
     );
   }
@@ -57,7 +57,7 @@ class PositionRecord {
       'date': date.toIso8601String(),
       'title': title,
       'latitude': latitude,
-      'longtitude': longtitude,
+      'longitude': longitude,
       'comment': comment,
     };
   }
@@ -73,6 +73,10 @@ class PositionRecord {
 
   Future<void> update() async {
     await AppController.to.hiveService.positionRecords.put(id, this);
+  }
+
+  Future<void> delete() async {
+    await AppController.to.hiveService.positionRecords.delete(id);
   }
 
   static Future<PositionRecord?> getById(int id) async {

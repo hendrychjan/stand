@@ -21,7 +21,7 @@ class PositionRecordAdapter extends TypeAdapter<PositionRecord> {
       date: fields[1] as DateTime,
       title: fields[2] as String,
       latitude: fields[3] as String,
-      longtitude: fields[4] as String,
+      longitude: fields[4] as String,
       comment: fields[5] as String?,
     );
   }
@@ -39,7 +39,7 @@ class PositionRecordAdapter extends TypeAdapter<PositionRecord> {
       ..writeByte(3)
       ..write(obj.latitude)
       ..writeByte(4)
-      ..write(obj.longtitude)
+      ..write(obj.longitude)
       ..writeByte(5)
       ..write(obj.comment);
   }

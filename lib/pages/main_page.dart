@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:stand/forms/position_record_form.dart';
+import 'package:stand/models/position_record.dart';
+import 'package:stand/pages/positions_page.dart';
 import 'package:stand/services/location_service.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -25,7 +25,6 @@ class _MainPageState extends State<MainPage> {
       });
       Position currentPosition = await LocationService.getCurrentLocation();
       setState(() {
-        _loading = false;
         _latitude = currentPosition.latitude.toString();
         _longitude = currentPosition.longitude.toString();
       });
@@ -35,16 +34,39 @@ class _MainPageState extends State<MainPage> {
         e.toString(),
         snackPosition: SnackPosition.TOP,
       );
+    } finally {
+      setState(() {
+        _loading = false;
+      });
     }
+  }
+
+  Future<void> _handleSaveLocation() async {
+    Get.dialog(
+      AlertDialog(
+        surfaceTintColor: Colors.white,
+        content: PositionRecordForm(
+          latitude: _latitude,
+          longitude: _longitude,
+          onSubmit: (PositionRecord newRec) async {
+            try {
+              await newRec.save();
+              Get.back();
+              Get.snackbar("Saved", "Saved new position record");
+            } catch (e) {
+              Get.back();
+              Get.snackbar("Error", e.toString());
+              rethrow;
+            }
+          },
+        ),
+      ),
+    );
   }
 
   Future<void> _handleCopyToClipboard() async {
     try {
-      await Clipboard.setData(
-        ClipboardData(
-          text: "$_latitude,$_longitude",
-        ),
-      );
+      await LocationService.copyToClipboard(_latitude, _longitude);
       Get.snackbar(
         "Copied",
         "Copied to clipboard",
@@ -61,11 +83,7 @@ class _MainPageState extends State<MainPage> {
 
   Future<void> _handleOpenExternally() async {
     try {
-      final query = '$_latitude,$_longitude';
-      final uri =
-          Uri(scheme: 'geo', host: '0,0', queryParameters: {'q': query});
-
-      await launchUrlString(uri.toString());
+      await LocationService.openExternally(_latitude, _longitude);
     } catch (e) {
       Get.snackbar(
         "Error",
@@ -77,8 +95,7 @@ class _MainPageState extends State<MainPage> {
 
   Future<void> _handleShareCoordinates() async {
     try {
-      await Share.share(
-          "https://www.google.com/maps/place/$_latitude,$_longitude");
+      await LocationService.shareCoordinates(_latitude, _longitude);
     } catch (e) {
       Get.snackbar(
         "Error",
@@ -86,11 +103,6 @@ class _MainPageState extends State<MainPage> {
         snackPosition: SnackPosition.TOP,
       );
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 
   @override
@@ -110,6 +122,17 @@ class _MainPageState extends State<MainPage> {
                 style: TextStyle(color: Get.theme.colorScheme.primary)),
           ],
         ),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              await Get.to(() => const PositionsPage());
+            },
+            icon: Icon(
+              Icons.list,
+              color: Get.theme.colorScheme.primary,
+            ),
+          ),
+        ],
       ),
       body: Center(
         child: Column(
@@ -145,7 +168,9 @@ class _MainPageState extends State<MainPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             IconButton(
-                              onPressed: () {},
+                              onPressed: (_latitude.isNotEmpty)
+                                  ? _handleSaveLocation
+                                  : null,
                               icon: const Icon(
                                 Icons.save_alt,
                               ),
