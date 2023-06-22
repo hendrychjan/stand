@@ -8,11 +8,15 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 void main() {
   Get.put(AppController());
 
-  runApp(GetMaterialApp(
-    title: 'Stand',
-    home: const SplashPage(),
-    theme: MainTheme.lightTheme,
-    localizationsDelegates: AppLocalizations.localizationsDelegates,
-    supportedLocales: AppLocalizations.supportedLocales,
-  ));
+  runApp(
+    GetMaterialApp(
+      title: 'Stand',
+      home: const SplashPage(),
+      theme: MainTheme.lightTheme,
+      darkTheme: MainTheme.darkTheme,
+      themeMode: ThemeMode.system,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+    ),
+  );
 }
