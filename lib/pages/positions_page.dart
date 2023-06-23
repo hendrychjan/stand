@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:stand/models/position_record.dart';
 import 'package:stand/pages/position_detail_page.dart';
 import 'package:stand/services/location_service.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PositionsPage extends StatefulWidget {
   const PositionsPage({super.key});
@@ -30,15 +31,17 @@ class _PositionsPageState extends State<PositionsPage> {
   Future<void> _handleCopyToClipboard(String latitude, String longitude) async {
     try {
       await LocationService.copyToClipboard(latitude, longitude);
-      Get.snackbar(
-        "Copied",
-        "Copied to clipboard",
-        snackPosition: SnackPosition.TOP,
-      );
+      if (context.mounted) {
+        Get.snackbar(
+          AppLocalizations.of(context)!.locationServiceInfo_clipTitle,
+          AppLocalizations.of(context)!.locationServiceInfo_clipDescription,
+          snackPosition: SnackPosition.TOP,
+        );
+      }
     } catch (e) {
       Get.snackbar(
-        "Error",
-        e.toString(),
+        AppLocalizations.of(context)!.error,
+        AppLocalizations.of(context)!.errorDescription,
         snackPosition: SnackPosition.TOP,
       );
     }
@@ -49,8 +52,8 @@ class _PositionsPageState extends State<PositionsPage> {
       await LocationService.openExternally(latitude, longitude);
     } catch (e) {
       Get.snackbar(
-        "Error",
-        e.toString(),
+        AppLocalizations.of(context)!.error,
+        AppLocalizations.of(context)!.errorDescription,
         snackPosition: SnackPosition.TOP,
       );
     }
@@ -62,8 +65,8 @@ class _PositionsPageState extends State<PositionsPage> {
       await LocationService.shareCoordinates(latitude, longitude);
     } catch (e) {
       Get.snackbar(
-        "Error",
-        e.toString(),
+        AppLocalizations.of(context)!.error,
+        AppLocalizations.of(context)!.errorDescription,
         snackPosition: SnackPosition.TOP,
       );
     }
@@ -95,17 +98,19 @@ class _PositionsPageState extends State<PositionsPage> {
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Get.theme.colorScheme.primary,
-        title: const Text("Saved"),
+        title: Text(
+          AppLocalizations.of(context)!.positionsPage_appBarTitle,
+        ),
       ),
       body: (_loading)
           ? const Center(
               child: CircularProgressIndicator(),
             )
           : (_positions.isEmpty)
-              ? const Center(
+              ? Center(
                   child: Text(
-                    "Nothing saved so far",
-                    style: TextStyle(color: Colors.grey),
+                    AppLocalizations.of(context)!.positionsPage_empty,
+                    style: const TextStyle(color: Colors.grey),
                   ),
                 )
               : ListView.builder(
@@ -128,16 +133,19 @@ class _PositionsPageState extends State<PositionsPage> {
                             _positions[index].latitude,
                             _positions[index].longitude),
                         itemBuilder: (context) {
-                          return const [
+                          return [
                             PopupMenuItem(
                               value: "copy",
                               child: Row(
                                 children: [
-                                  Padding(
+                                  const Padding(
                                     padding: EdgeInsets.only(right: 15),
                                     child: Icon(Icons.copy),
                                   ),
-                                  Text("Copy to clipboard"),
+                                  Text(
+                                    AppLocalizations.of(context)!
+                                        .positionsPage_clipAction,
+                                  ),
                                 ],
                               ),
                             ),
@@ -145,11 +153,14 @@ class _PositionsPageState extends State<PositionsPage> {
                               value: "share",
                               child: Row(
                                 children: [
-                                  Padding(
+                                  const Padding(
                                     padding: EdgeInsets.only(right: 15),
                                     child: Icon(Icons.share),
                                   ),
-                                  Text("Share"),
+                                  Text(
+                                    AppLocalizations.of(context)!
+                                        .positionsPage_shareAction,
+                                  ),
                                 ],
                               ),
                             ),
@@ -157,11 +168,14 @@ class _PositionsPageState extends State<PositionsPage> {
                               value: "open",
                               child: Row(
                                 children: [
-                                  Padding(
+                                  const Padding(
                                     padding: EdgeInsets.only(right: 15),
                                     child: Icon(Icons.map),
                                   ),
-                                  Text("Open in maps"),
+                                  Text(
+                                    AppLocalizations.of(context)!
+                                        .positionsPage_openInMapsAction,
+                                  ),
                                 ],
                               ),
                             ),

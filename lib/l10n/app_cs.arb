@@ -1,5 +1,29 @@
 {
+  "error": "Chyba",
+  "errorDescription": "Došlo k neznámé chybě",
+  "save": "Uložit",
+  "cancel": "Zrušit",
+  "delete": "Odstranit",
+
   "locationServiceError_locationServiceNotAvailable": "Určování polohy není k dispozici. Ujistěte se, že máte zapnuté GPS.",
   "locationServiceError_locationPermissionDenied": "Aplikace nemá oprávnění k určování polohy.",
-  "locationServiceError_unknownError": "Při určování polohy došlo k neznámé chybě,"
+  "locationServiceError_unknownError": "Při určování polohy došlo k neznámé chybě",
+  "locationServiceInfo_savedTitle": "Uloženo",
+  "locationServiceInfo_savedDescription": "GPS pozice přidána mezi uložená místa",
+  "locationServiceInfo_clipTitle": "Zkopírováno",
+  "locationServiceInfo_clipDescription": "GPS pozice zkopárována do schránky",
+
+  "mainPage_appBarTitle": "Štand",
+  
+  "positionsPage_appBarTitle": "Uložená místa",
+  "positionsPage_empty": "Zatím žádná uložená místa",
+  "positionsPage_clipAction": "Zkopírovat do schránky",
+  "positionsPage_shareAction": "Sdílet",
+  "positionsPage_openInMapsAction": "Otevřít v mapách",
+  
+  "positionDetailPage_appBarTitle": "Místo",
+  "positionDetailPage_deleteDialogTitle": "Odstranit",
+  "positionDetailPage_deleteDialogDescription": "Jste si jisti, že chcete odstranit toto uložené místo?",
+  "positionDetailPage_updatedSnackbarTitle": "Uloženo",
+  "positionDetailPage_updatedSnackbarDescription": "Změny byly uloženy"
 }

@@ -1,5 +1,29 @@
 {
+  "error": "Error",
+  "errorDescription": "An unknown error has occured",
+  "save": "Save",
+  "cancel": "Cancel",
+  "delete": "Delete",
+
   "locationServiceError_locationServiceNotAvailable": "Location service is not available. Please check that GPS is enabled.",
   "locationServiceError_locationPermissionDenied": "Location permission denied. Please enable location permission.",
-  "locationServiceError_unknownError": "Unkown error occured while getting location."
+  "locationServiceError_unknownError": "Unkown error occured while getting location.",
+  "locationServiceInfo_savedTitle": "Saved",
+  "locationServiceInfo_savedDescription": "Saved new position record",
+  "locationServiceInfo_clipTitle": "Copied",
+  "locationServiceInfo_clipDescription": "Copied to clipboard",
+
+  "mainPage_appBarTitle": "Stand",
+  
+  "positionsPage_appBarTitle": "Saved",
+  "positionsPage_empty": "Nothing saved so far",
+  "positionsPage_clipAction": "Copy to clipboard",
+  "positionsPage_shareAction": "Share",
+  "positionsPage_openInMapsAction": "Open in maps",
+  
+  "positionDetailPage_appBarTitle": "Position",
+  "positionDetailPage_deleteDialogTitle": "Delete",
+  "positionDetailPage_deleteDialogDescription": "Are you sure you want to delete this position?",
+  "positionDetailPage_updatedSnackbarTitle": "Updated",
+  "positionDetailPage_updatedSnackbarDescription": "Position record has been updated"
 }
