@@ -11,6 +11,7 @@ class MainTheme {
     final ThemeData base = ThemeData.dark(useMaterial3: true);
 
     return base.copyWith(
+      brightness: Brightness.dark,
       // Colors
       colorScheme: const ColorScheme.light(
         primary: primaryColor,
@@ -31,17 +32,33 @@ class MainTheme {
 
       scaffoldBackgroundColor: Colors.black,
 
-      iconButtonTheme: IconButtonThemeData(
-        style: ButtonStyle(
-          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-        ),
-      ),
-
       // Button
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           foregroundColor: secondaryColor,
           surfaceTintColor: secondaryColor.withOpacity(0.4),
+        ),
+      ),
+      popupMenuTheme: PopupMenuThemeData(
+        color: const Color.fromARGB(255, 39, 39, 39),
+        surfaceTintColor: Colors.white,
+        labelTextStyle: MaterialStateProperty.all<TextStyle>(
+          const TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        textStyle: const TextStyle(
+          color: Colors.white,
+        ),
+      ),
+      iconButtonTheme: IconButtonThemeData(
+        style: ButtonStyle(
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+        ),
+      ),
+      menuButtonTheme: MenuButtonThemeData(
+        style: ButtonStyle(
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
         ),
       ),
 
@@ -109,6 +126,16 @@ class MainTheme {
         style: ElevatedButton.styleFrom(
           foregroundColor: secondaryColor,
           surfaceTintColor: secondaryColor.withOpacity(0.4),
+        ),
+      ),
+      iconButtonTheme: IconButtonThemeData(
+        style: ButtonStyle(
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+        ),
+      ),
+      menuButtonTheme: MenuButtonThemeData(
+        style: ButtonStyle(
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
         ),
       ),
 

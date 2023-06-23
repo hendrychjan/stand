@@ -128,6 +128,12 @@ class _PositionsPageState extends State<PositionsPage> {
                         "${_positions[index].latitude}, ${_positions[index].longitude}",
                       ),
                       trailing: PopupMenuButton(
+                        icon: Icon(
+                          Icons.more_vert,
+                          color: (Get.theme.brightness == Brightness.light)
+                              ? Colors.black
+                              : Colors.white,
+                        ),
                         onSelected: (selected) => _handleMenuAction(
                             selected,
                             _positions[index].latitude,
@@ -138,9 +144,15 @@ class _PositionsPageState extends State<PositionsPage> {
                               value: "copy",
                               child: Row(
                                 children: [
-                                  const Padding(
-                                    padding: EdgeInsets.only(right: 15),
-                                    child: Icon(Icons.copy),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 15),
+                                    child: Icon(
+                                      Icons.copy,
+                                      color: (Get.theme.brightness ==
+                                              Brightness.light)
+                                          ? Colors.black
+                                          : Colors.white,
+                                    ),
                                   ),
                                   Text(
                                     AppLocalizations.of(context)!
@@ -153,9 +165,15 @@ class _PositionsPageState extends State<PositionsPage> {
                               value: "share",
                               child: Row(
                                 children: [
-                                  const Padding(
-                                    padding: EdgeInsets.only(right: 15),
-                                    child: Icon(Icons.share),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 15),
+                                    child: Icon(
+                                      Icons.share,
+                                      color: (Get.theme.brightness ==
+                                              Brightness.light)
+                                          ? Colors.black
+                                          : Colors.white,
+                                    ),
                                   ),
                                   Text(
                                     AppLocalizations.of(context)!
@@ -168,9 +186,15 @@ class _PositionsPageState extends State<PositionsPage> {
                               value: "open",
                               child: Row(
                                 children: [
-                                  const Padding(
-                                    padding: EdgeInsets.only(right: 15),
-                                    child: Icon(Icons.map),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 15),
+                                    child: Icon(
+                                      Icons.map,
+                                      color: (Get.theme.brightness ==
+                                              Brightness.light)
+                                          ? Colors.black
+                                          : Colors.white,
+                                    ),
                                   ),
                                   Text(
                                     AppLocalizations.of(context)!

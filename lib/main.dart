@@ -14,7 +14,7 @@ void main() {
       home: const SplashPage(),
       theme: MainTheme.lightTheme,
       darkTheme: MainTheme.darkTheme,
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.dark,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
     ),
