@@ -2,7 +2,7 @@ name: stand
 description: A new Flutter project.
 publish_to: 'none'
 
-version: 1.1.0+1
+version: 1.2.1+3
 
 environment:
   sdk: '>=3.0.3 <4.0.0'
