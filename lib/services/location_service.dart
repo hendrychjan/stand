@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:stand/exceptions/location_service_exception.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class LocationService {
@@ -37,7 +38,10 @@ class LocationService {
 
   static Future<void> _checkLocationServicesAvailable() async {
     if (!(await Geolocator.isLocationServiceEnabled())) {
-      throw Exception("Location services not available");
+      throw LocationServiceException(
+        type: LocationServiceExceptionType.serviceUnavailable,
+        message: "Location services unavailable",
+      );
     }
   }
 
@@ -46,13 +50,19 @@ class LocationService {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        throw Exception("Location permissions denied");
+        throw LocationServiceException(
+          type: LocationServiceExceptionType.permissionDenied,
+          message: "Location permissions denied",
+        );
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever, handle appropriately.
-      throw Exception("Location permissions denied forever");
+      throw LocationServiceException(
+        type: LocationServiceExceptionType.permissionDeniedForever,
+        message: "Location permissions denied forever",
+      );
     }
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stand/forms/position_record_form.dart';
 import 'package:stand/models/position_record.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PositionDetailPage extends StatefulWidget {
   final PositionRecord position;
@@ -20,14 +21,19 @@ class _PositionDetailPageState extends State<PositionDetailPage> {
   Future<void> _handleDelete() async {
     await Get.dialog(
       AlertDialog(
-        title: const Text("Delete"),
-        content: const Text("Are you sure you want to delete this position?"),
+        title: Text(
+          AppLocalizations.of(context)!.positionDetailPage_deleteDialogTitle,
+        ),
+        content: Text(
+          AppLocalizations.of(context)!
+              .positionDetailPage_deleteDialogDescription,
+        ),
         actions: [
           TextButton(
             onPressed: () {
               Get.back();
             },
-            child: const Text("Cancel"),
+            child: Text(AppLocalizations.of(context)!.cancel),
           ),
           TextButton(
             onPressed: () async {
@@ -35,10 +41,10 @@ class _PositionDetailPageState extends State<PositionDetailPage> {
               if (widget.onDataChanged != null) {
                 widget.onDataChanged!();
               }
-              Get.back();
-              Get.back();
+              Get.back(); // close the dialog
+              Get.back(); // close the detail page
             },
-            child: const Text("Delete"),
+            child: Text(AppLocalizations.of(context)!.delete),
           ),
         ],
       ),
@@ -49,7 +55,9 @@ class _PositionDetailPageState extends State<PositionDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Position"),
+        title: Text(
+          AppLocalizations.of(context)!.positionDetailPage_appBarTitle,
+        ),
         foregroundColor: Get.theme.colorScheme.primary,
         actions: [
           IconButton(
@@ -70,11 +78,15 @@ class _PositionDetailPageState extends State<PositionDetailPage> {
             if (widget.onDataChanged != null) {
               widget.onDataChanged!();
             }
-            Get.snackbar(
-              "Updated",
-              "Position record has been upated",
-              snackPosition: SnackPosition.TOP,
-            );
+            if (context.mounted) {
+              Get.snackbar(
+                AppLocalizations.of(context)!
+                    .positionDetailPage_updatedSnackbarTitle,
+                AppLocalizations.of(context)!
+                    .positionDetailPage_updatedSnackbarDescription,
+                snackPosition: SnackPosition.TOP,
+              );
+            }
           },
         ),
       ),

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:stand/exceptions/location_service_exception.dart';
 import 'package:stand/forms/position_record_form.dart';
 import 'package:stand/models/position_record.dart';
 import 'package:stand/pages/positions_page.dart';
 import 'package:stand/services/location_service.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -28,10 +30,35 @@ class _MainPageState extends State<MainPage> {
         _latitude = currentPosition.latitude.toString();
         _longitude = currentPosition.longitude.toString();
       });
+    } on LocationServiceException catch (e) {
+      String message;
+      switch (e.type) {
+        case LocationServiceExceptionType.serviceUnavailable:
+          message = AppLocalizations.of(context)!
+              .locationServiceError_locationServiceNotAvailable;
+          break;
+        case LocationServiceExceptionType.permissionDenied:
+          message = AppLocalizations.of(context)!
+              .locationServiceError_locationPermissionDenied;
+          break;
+        case LocationServiceExceptionType.permissionDeniedForever:
+          message = AppLocalizations.of(context)!
+              .locationServiceError_locationPermissionDenied;
+          break;
+        case LocationServiceExceptionType.unknown:
+          message =
+              AppLocalizations.of(context)!.locationServiceError_unknownError;
+          break;
+      }
+      Get.snackbar(
+        AppLocalizations.of(context)!.error,
+        message,
+        snackPosition: SnackPosition.TOP,
+      );
     } catch (e) {
       Get.snackbar(
-        "Error",
-        e.toString(),
+        AppLocalizations.of(context)!.error,
+        AppLocalizations.of(context)!.errorDescription,
         snackPosition: SnackPosition.TOP,
       );
     } finally {
@@ -52,11 +79,21 @@ class _MainPageState extends State<MainPage> {
             try {
               await newRec.save();
               Get.back();
-              Get.snackbar("Saved", "Saved new position record");
+              if (context.mounted) {
+                Get.snackbar(
+                  AppLocalizations.of(context)!.locationServiceInfo_savedTitle,
+                  AppLocalizations.of(context)!
+                      .locationServiceInfo_savedDescription,
+                );
+              }
             } catch (e) {
               Get.back();
-              Get.snackbar("Error", e.toString());
-              rethrow;
+              if (context.mounted) {
+                Get.snackbar(
+                  AppLocalizations.of(context)!.error,
+                  AppLocalizations.of(context)!.errorDescription,
+                );
+              }
             }
           },
         ),
@@ -67,15 +104,17 @@ class _MainPageState extends State<MainPage> {
   Future<void> _handleCopyToClipboard() async {
     try {
       await LocationService.copyToClipboard(_latitude, _longitude);
-      Get.snackbar(
-        "Copied",
-        "Copied to clipboard",
-        snackPosition: SnackPosition.TOP,
-      );
+      if (context.mounted) {
+        Get.snackbar(
+          AppLocalizations.of(context)!.locationServiceInfo_clipTitle,
+          AppLocalizations.of(context)!.locationServiceInfo_clipDescription,
+          snackPosition: SnackPosition.TOP,
+        );
+      }
     } catch (e) {
       Get.snackbar(
-        "Error",
-        e.toString(),
+        AppLocalizations.of(context)!.error,
+        AppLocalizations.of(context)!.errorDescription,
         snackPosition: SnackPosition.TOP,
       );
     }
@@ -86,8 +125,8 @@ class _MainPageState extends State<MainPage> {
       await LocationService.openExternally(_latitude, _longitude);
     } catch (e) {
       Get.snackbar(
-        "Error",
-        e.toString(),
+        AppLocalizations.of(context)!.error,
+        AppLocalizations.of(context)!.errorDescription,
         snackPosition: SnackPosition.TOP,
       );
     }
@@ -98,8 +137,8 @@ class _MainPageState extends State<MainPage> {
       await LocationService.shareCoordinates(_latitude, _longitude);
     } catch (e) {
       Get.snackbar(
-        "Error",
-        e.toString(),
+        AppLocalizations.of(context)!.error,
+        AppLocalizations.of(context)!.errorDescription,
         snackPosition: SnackPosition.TOP,
       );
     }
@@ -118,8 +157,10 @@ class _MainPageState extends State<MainPage> {
                 color: Get.theme.colorScheme.primary,
               ),
             ),
-            Text("Štand",
-                style: TextStyle(color: Get.theme.colorScheme.primary)),
+            Text(
+              AppLocalizations.of(context)!.mainPage_appBarTitle,
+              style: TextStyle(color: Get.theme.colorScheme.primary),
+            ),
           ],
         ),
         actions: [
